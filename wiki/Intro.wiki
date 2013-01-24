@@ -6,4 +6,4 @@
 
 	Slika 1. predstavlja troslojnu klijent-server arhitekturu, pri čemu je za čuvanje podataka zadužena MySQL baza podataka, serverski sloj čine JPA Entity-ji koji reprezentuju podatke iz baze u alikaciji i web servisi, realizovani po JAX-WS specifikaciji. Klijentska aplikacija koristi JSF framework za obavljanje svoje funkcije, a sa web servisima razmenjuje podatke preko SOAP protokola.
 
-*Detaljna projektna dokumentacija se nalazi u prilozenom[http://ftn-is-project.googlecode.com/files/FtnIS%20projekat.pdf] .pdf dokumentu
+*Detaljna projektna dokumentacija se nalazi u [http://ftn-is-project.googlecode.com/files/FtnIS%20projekat.pdf prilozenom .pdf dokumentu] 
