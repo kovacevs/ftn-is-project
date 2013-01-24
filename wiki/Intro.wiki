@@ -1,9 +1,14 @@
+#labels Featured
 =Opis projekta=
 
-	Aplikacija FTN-IS oslikava uprošćeni informacioni sistem fakulteta koji poznaje tri tipa korisnika: administratora sistema, nastavnika i studenta. Obezbeđuje zaštitu od neautorizovanog pristupa podacima uz oslonac na mehanizam korisničke sesije. Podaci aplikacije se čuvaju u MySQL 5.5 bazi podataka, aplikacioni server i web container je Jboss AS 7.1. 
+	Aplikacija FTN-IS oslikava uprošćeni informacioni sistem fakulteta koji poznaje tri tipa korisnika: administratora sistema, nastavnika i studenta. Obezbeđuje zaštitu od neautorizovanog pristupa podacima uz oslonac na mehanizam korisničke sesije. Podaci aplikacije se čuvaju u MySQL 5.5 bazi podataka, aplikacioni server i web container je Jboss AS 7.1. Aplikacija je rađena po arhitekturi sa slike1. i sa modelom podataka sa slike2.
 
 ==Arhitektura==
 
 	Slika 1. predstavlja troslojnu klijent-server arhitekturu, pri čemu je za čuvanje podataka zadužena MySQL baza podataka, serverski sloj čine JPA Entity-ji koji reprezentuju podatke iz baze u alikaciji i web servisi, realizovani po JAX-WS specifikaciji. Klijentska aplikacija koristi JSF framework za obavljanje svoje funkcije, a sa web servisima razmenjuje podatke preko SOAP protokola.
+[http://ftn-is-project.googlecode.com/files/1.jpg]
+
+Na slici 2. prikazan je model podataka FTN-IS sistema. FTN je podeljen na niz odseka, a svaki odsek ima asociranu listu predmeta koji se na njemu izvodi. Za svaki predmet je zadužen jedan nastavnik s'tim što jedan nastavnik može da organizuje nastavu i za više predmeta. U okviru sistema se vodi evidencija o studentima koji su upisani na FTN. Studenti  imaju pojedine obaveze vezane za predmete koje mogu ali i ne moraju da se ocenjuju. Svakom predmetu asociran je niz grupa u koje su raspoređeni studenti. U okviru sistema se vodi evidencija o prisustvu studenata nastavi koja se održava u okviru određenog predmeta. Termini se računaju u skladu sa atributima pocetakNastave (datum kada počinje nastava) i brojTermina (predviđen broj termina) entiteta Grupa. Aritmetikom vezanom za ove dve vrednosti dobijaju se datumi koji se upisuju kao vrednost atributa termin entiteta Prisustvo. Student može da prijavi ispit iz svakog odslušanog predmeta, za kojeg ne postoji obaveza pod nazivom Konacna ocena. Nastavnik, za odgovarajući predmet, označava da li je student odradio sve predispitne obaveze (da li je odslišao predmet) i da li može da prijavi ispit iz tog predmeta.
+[http://ftn-is-project.googlecode.com/files/2.jpg]
 
 *Detaljna projektna dokumentacija se nalazi u [http://ftn-is-project.googlecode.com/files/FtnIS%20projekat.pdf prilozenom .pdf dokumentu] 
