@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Azuriranje odslusanosti predmeta</h2>
+
+
+
+    <h:form styleClass="loginForm">
+    <h2>Odaberite zeljeni predmet</h2>
+      	<h:panelGrid columns="2">
+      		<h:outputLabel value="Predmet: " />
+      		<h:selectOneMenu value="#{nastavnikOdslusani.selectedPredmet}" onchange="submit()" valueChangeListener="#{nastavnikOdslusani.selectPredmet}" >
+   				<f:selectItems value="#{nastavnikOdslusani.predmeti}" var="pred" itemLabel="#{pred.naziv}"/>
+   	  		</h:selectOneMenu>
+   	  	</h:panelGrid>
+   	  	<p></p>
+   	  	<h:panelGrid>
+        	<h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"/>  <!-- globalOnly="true" showDetail="true"-->
+        </h:panelGrid>
+   	</h:form>
+   	<p/><!-- &#160;</p> -->
+   	<h2>Spisak studenata za odabrani predmet</h2>
+    <h:panelGroup rendered="#{empty nastavnikOdslusani.odslusani}">
+       <em>Nema studenata.</em>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{not empty nastavnikOdslusani.odslusani}">
+      <h:form>
+      	<h:dataTable id="tOds" var="_ods" value="#{nastavnikOdslusani.odslusani}" styleClass="simpletablestyle">
+         	<h:column>
+            	<f:facet name="header">Index</f:facet>
+                	#{_ods.student.brojIndeksa}
+         	</h:column>
+         	<h:column>
+            	<f:facet name="header">Ime i prezime</f:facet>
+					#{_ods.student.ime}&#160;#{_ods.student.prezime}                
+         	</h:column> 
+         	<h:column>
+            	<f:facet name="header">Odslusan</f:facet>
+            	<h:selectBooleanCheckbox value="#{_ods.odslusan}" />
+         	</h:column>
+      	</h:dataTable>
+      	<p></p>
+	   
+	   	<h:commandButton id="register" action="#{nastavnikOdslusani.save()}" value="Sacuvaj" />
+	  </h:form>
+	</h:panelGroup>
+   </ui:define>
+</ui:composition>

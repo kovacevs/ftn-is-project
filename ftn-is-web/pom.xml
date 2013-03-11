@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <artifactId>ftn-is</artifactId>
+      <groupId>ftn</groupId>
+      <version>1.0</version>
+   </parent>
+
+   <artifactId>ftn-is-web</artifactId>
+   <packaging>war</packaging>
+
+   <name>ftn-is Web module</name>
+
+   <dependencies>
+	  
+      <!-- Import the CDI API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>javax.enterprise</groupId>
+         <artifactId>cdi-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- Import the JSF API, we use provided scope as the API is included 
+         in JBoss AS 7 -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.faces</groupId>
+         <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Bilo je potrebno za dobavljanje named bina u converter (za toObject metodu, za selectOneMeny) -->
+      <dependency>
+         <groupId>org.jboss.spec.javax.el</groupId>
+         <artifactId>jboss-el-api_2.2_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      
+      <!-- Potrebno za fileupload i datatable sa dinamickim brojem kolona -->
+      <dependency>
+      	<groupId>org.apache.myfaces.tomahawk</groupId>
+      	<artifactId>tomahawk20</artifactId>
+      	<version>1.1.14</version>
+      </dependency>
+      
+      <dependency>
+      	<groupId>org.apache.commons</groupId>
+      	<artifactId>commons-io</artifactId>
+      	<version>1.3.2</version>
+      </dependency>
+      
+      <dependency>
+		<groupId>org.apache.ws.security</groupId>
+		<artifactId>wss4j</artifactId>
+		<version>1.6.5</version>
+		<scope>provided</scope>
+	</dependency>
+			
+     <dependency>
+         <groupId>org.jboss.spec.javax.servlet</groupId>
+         <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+ 
+      <plugins>
+      
+      <!-- Da preskoci testove prilikom bildovanja -->
+	  <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.10</version>
+			<configuration>
+				<skipTests>true</skipTests>
+			</configuration>
+	    </plugin>
+	    
+         <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+            	<archive>
+            		<manifestEntries>
+            			<Dependencies>org.apache.ws.security</Dependencies>
+            		</manifestEntries>
+            	</archive>
+               <!-- Java EE 6 doesn't require web.xml, Maven needs to catch 
+                  up! -->
+               <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>

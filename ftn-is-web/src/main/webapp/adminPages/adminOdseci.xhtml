@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Administracija odseka</h2>
+
+      <h:form styleClass="loginForm">
+         <h2>Dodavanje/izmena odseka</h2>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idOds" value="ID:"/>
+            <h:inputText id="idOds" value="#{adminController.newOdsek.odsekId}" readonly="true" />
+            <h:outputLabel for="nazivOds" value="Naziv:"/>
+            <h:inputText id="nazivOds" value="#{adminController.newOdsek.naziv}" />
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{adminController.addOdsek()}" value="Sacuvaj" styleClass="saveButton"/>
+               <h:commandButton id="cancelButton" action="#{adminController.initnewOdsek()}" value="Odustani" styleClass="cancelButton"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>  
+            </h:panelGrid>
+         </p>
+      </h:form>
+      <h2>Lista odseka</h2>
+      <h:panelGroup rendered="#{empty adminController.odseci}">
+         <em>Nema odseka.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaOdseka" var="_odsek" value="#{adminController.odseci}" rendered="#{not empty adminController.odseci}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_odsek.odsekId}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Name</f:facet>
+                #{_odsek.naziv}
+            </h:column>
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{adminController.removeOdsek(_odsek)}">obrisi</h:commandLink> &#160;&#160;&#160; <h:commandLink action="#{adminController.editOdsek(_odsek)}">izmeni</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>

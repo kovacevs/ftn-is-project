@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#adminLoginPage.xhtml"
+  PATH="/adminLoginPage.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#adminLoginPage.xhtml:0" NAME="item"
+   PATH="/adminLoginPage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{adminLogin.login}:#adminPages#adminHome.xhtml" NAME="output"
+    PATH="/adminPages/adminHome.xhtml"
+    TARGET="rules:#adminPages#adminHome.xhtml"
+    TITLE="#{adminLogin.login}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#adminPages#adminHome.xhtml"
+  PATH="/adminPages/adminHome.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#nastavnikLoginPage.xhtml"
+  PATH="/nastavnikLoginPage.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nastavnikLoginPage.xhtml:0" NAME="item"
+   PATH="/nastavnikLoginPage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{nastavnikLogin.login}:#nastavnikPages#nastavnikHome.xhtml"
+    NAME="output" PATH="/nastavnikPages/nastavnikHome.xhtml"
+    TARGET="rules:#nastavnikPages#nastavnikHome.xhtml"
+    TITLE="#{nastavnikLogin.login}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nastavnikPages#nastavnikHome.xhtml"
+  PATH="/nastavnikPages/nastavnikHome.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#studentLoginPage.xhtml"
+  PATH="/studentLoginPage.xhtml" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#studentLoginPage.xhtml:0" NAME="item"
+   PATH="/studentLoginPage.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{studentLogin.login}:#studentPages#studentHome.xhtml"
+    NAME="output" PATH="/studentPages/studentHome.xhtml"
+    TARGET="rules:#studentPages#studentHome.xhtml"
+    TITLE="#{studentLogin.login}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#studentPages#studentHome.xhtml"
+  PATH="/studentPages/studentHome.xhtml" SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

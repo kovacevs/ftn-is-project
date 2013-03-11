@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Promena licnih podataka administratora</h2>
+
+      <h:form styleClass="loginForm">
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idAdm" value="ID:"/>
+            <h:inputText id="idAdm" value="#{adminController.newAdmin.administratorId}" readonly="true" />
+            <h:outputLabel for="imeAdmin" value="Ime:"/>
+            <h:inputText id="imeAdmin" value="#{adminController.newAdmin.ime}" />
+            <h:outputLabel for="preAdmin" value="Prezime:"/>
+            <h:inputText id="preAdmin" value="#{adminController.newAdmin.prezime}" />
+            <h:outputLabel for="userAdmin" value="Username:"/>
+            <h:inputText id="userAdmin" value="#{adminController.newAdmin.username}" />
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{adminController.editAdmin()}" value="Sacuvaj" styleClass="saveButton"/>
+               <h:commandButton id="cancelButton" action="#{adminController.initnewAdmin()}" value="Odustani" styleClass="cancelButton"/>
+            </h:panelGrid>
+            <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>  
+         </p>
+      </h:form>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+            <p>&#160;</p>
+      <p>&#160;</p>
+   </ui:define>
+</ui:composition>
