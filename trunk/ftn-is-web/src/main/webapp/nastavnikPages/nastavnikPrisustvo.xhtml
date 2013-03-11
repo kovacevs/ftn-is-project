@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:t="http://myfaces.apache.org/tomahawk"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Azuriranje prisustva studenata</h2>
+
+    <h:form styleClass="loginForm">
+    <h2>Odaberite zeljeni predmet i grupu</h2>
+      	<h:panelGrid columns="2">
+      		<h:outputLabel value="Predmet: " />
+      		<h:selectOneMenu value="#{nastavnikPrisustvo.selectedPredmet}" onchange="submit()" valueChangeListener="#{nastavnikPrisustvo.selectPredmet}" >
+   				<f:selectItems value="#{nastavnikPrisustvo.predmeti}" var="pred" itemLabel="#{pred.naziv}"/>
+   	  		</h:selectOneMenu>
+			
+      		<h:outputLabel value="Grupa: " />
+     		<h:selectOneMenu id="prisustvoGrupe" value="#{nastavnikPrisustvo.selectedGrupa}" onchange="submit()" valueChangeListener="#{nastavnikPrisustvo.selectGrupa}" >
+  				<f:selectItems value="#{nastavnikPrisustvo.grupe}" var="grupa" itemLabel="#{grupa.grupaId}"/>
+  	  		</h:selectOneMenu>
+  	  		<p></p>
+   	  	</h:panelGrid>
+   	  	<h:panelGrid>
+        	<h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"/>  <!-- globalOnly="true" showDetail="true"-->
+        </h:panelGrid>
+   	  </h:form>
+   	  <p/><!-- &#160;</p> -->
+   	  <h2>Prisustvo studenata terminima za odabranu grupu</h2>
+   	  <h:panelGroup rendered="#{empty nastavnikPrisustvo.rowDataModel.wrappedData}">
+         <em>Nema studenata.</em>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{not empty nastavnikPrisustvo.rowDataModel.wrappedData}">
+         <h:form>
+	      <t:dataTable id="tabela" var="student" value="#{nastavnikPrisustvo.rowDataModel}" styleClass="simpletablestyle">
+	         <t:column>
+	            <f:facet name="header">Student</f:facet>
+	                #{student}
+	         </t:column>
+	 		 <t:columns value="#{nastavnikPrisustvo.columnDataModel}" var="termin">
+	        	<f:facet name="header">
+	            	<h:outputText value="#{termin}">
+	            		<f:convertDateTime type="date" pattern="dd.MM.yy"/>
+	            	</h:outputText>
+	        	</f:facet>
+	        	<h:selectBooleanCheckbox value="#{nastavnikPrisustvo.tableValue}" />
+	    	</t:columns>
+	      </t:dataTable>
+	      <p></p>
+	   
+	      	<h:commandButton id="register" action="#{nastavnikPrisustvo.save()}" value="Sacuvaj" />
+	      </h:form>
+      </h:panelGroup>
+   </ui:define>
+</ui:composition>

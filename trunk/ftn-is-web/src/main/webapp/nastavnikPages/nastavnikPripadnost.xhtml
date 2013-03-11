@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Azuriranje pripadnosti studenata grupama</h2>
+
+
+
+    <h:form styleClass="loginForm">
+    <h2>Odaberite zeljeni predmet i grupu</h2>
+      	<h:panelGrid columns="2">
+      		<h:outputLabel value="Predmet: " />
+      		<h:selectOneMenu value="#{nastavnikPripadnost.selectedPredmet}" onchange="submit()" valueChangeListener="#{nastavnikPripadnost.selectPredmet}" >
+   				<f:selectItems value="#{nastavnikPripadnost.predmeti}" var="pred" itemLabel="#{pred.naziv}"/>
+   	  		</h:selectOneMenu>
+			
+      		<h:outputLabel value="Grupa: " />
+     		<h:selectOneMenu id="pripadnostGrupe" value="#{nastavnikPripadnost.selectedGrupa}" onchange="submit()" valueChangeListener="#{nastavnikPripadnost.selectGrupa}" >
+  				<f:selectItems value="#{nastavnikPripadnost.grupe}" var="grupa" itemLabel="#{grupa.grupaId}"/>
+  	  		</h:selectOneMenu>
+   	  	</h:panelGrid>
+   	  </h:form>
+   	  <p/><!-- &#160;</p> -->
+   	  <h2>Spisak studenata koji su u odabranoj grupi za odabrani predmet</h2>
+      <h:panelGroup rendered="#{empty nastavnikPripadnost.studentiUGrupi}">
+         <em>Nema studenata.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaPripadaju" var="_studPrip" value="#{nastavnikPripadnost.studentiUGrupi}" rendered="#{not empty nastavnikPripadnost.studentiUGrupi}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Index</f:facet>
+                #{_studPrip.brojIndeksa}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Ime i prezime</f:facet>
+				#{_studPrip.ime}&#160;#{_studPrip.prezime}                
+         </h:column> 
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form> 
+            	<h:commandLink action="#{nastavnikPripadnost.removeStudentFromGroup(_studPrip)}">izbaci</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+      
+      <p/><!-- &#160;</p> -->
+      <h2>Spisak studenata koji nisu ni u jednoj grupi za odabrani predmet</h2>
+      <h:panelGroup rendered="#{empty nastavnikPripadnost.studentiVanGrupe}">
+         <em>Nema studenata.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaNePripadaju" var="_studNePrip" value="#{nastavnikPripadnost.studentiVanGrupe}" rendered="#{not empty nastavnikPripadnost.studentiVanGrupe}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Index</f:facet>
+                #{_studNePrip.brojIndeksa}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Ime i prezime</f:facet>
+				#{_studNePrip.ime}&#160;#{_studNePrip.prezime}             
+         </h:column> 
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{nastavnikPripadnost.addStudentToGroup(_studNePrip)}">dodaj</h:commandLink>
+           </h:form>
+         </h:column>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>

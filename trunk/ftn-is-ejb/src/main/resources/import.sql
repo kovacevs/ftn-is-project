@@ -1,0 +1,1 @@
+insert into Administrator values (1,'Sinisa','burek','Kovacev','kova');

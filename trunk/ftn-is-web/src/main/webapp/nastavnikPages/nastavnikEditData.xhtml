@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Promena licnih podataka nastavnika</h2>
+
+      <h:form styleClass="loginForm">
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idNas" value="ID:"/>
+            <h:inputText id="idNas" value="#{nastavnikEdit.newNastavnik.nastavnikId}" readonly="true" />
+            <h:outputLabel for="imeNas" value="Ime:"/>
+            <h:inputText id="imeNas" value="#{nastavnikEdit.newNastavnik.ime}" />
+            <h:outputLabel for="preNas" value="Prezime:"/>
+            <h:inputText id="preNas" value="#{nastavnikEdit.newNastavnik.prezime}" />
+            <h:outputLabel for="userNas" value="Username:"/>
+            <h:inputText id="userNas" value="#{nastavnikEdit.newNastavnik.username}" />
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{nastavnikEdit.editNastavnik()}" value="Sacuvaj" styleClass="saveButton"/>
+               <h:commandButton id="cancelButton" action="#{nastavnikEdit.initnewNastavnik()}" value="Odustani" styleClass="cancelButton"/>
+            </h:panelGrid>
+            <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>  
+         </p>
+      </h:form>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+            <p>&#160;</p>
+      <p>&#160;</p>
+   </ui:define>
+</ui:composition>

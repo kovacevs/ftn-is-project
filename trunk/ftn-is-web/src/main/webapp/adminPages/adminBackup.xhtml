@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:t="http://myfaces.apache.org/tomahawk"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Backup baze podataka</h2>
+
+      <h:form styleClass="loginForm">
+      <h2>Backup kreira zasticeni .bkp fajl za download.</h2>
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{adminController.backup()}" value="Download" styleClass="register"/>
+            </h:panelGrid>
+         </p>
+      </h:form>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <h2>Restore baze podataka</h2>
+      <h:form styleClass="loginForm" enctype="multipart/form-data">
+      <h2>Za restore baze odaberite .bkp fajl za upload</h2>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <t:inputFileUpload value="#{adminController.backupFile}"/>
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{adminController.restore()}" value="Restore" styleClass="register"/>
+            </h:panelGrid>
+            <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+            globalOnly="true"/>  
+         </p>
+      </h:form>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+   </ui:define>
+</ui:composition>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Administracija nastavnika</h2>
+
+      <h:form styleClass="loginForm">
+         <h2>Dodavanje/izmena nastavnika</h2>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idNas" value="ID:"/>
+            <h:inputText id="idNas" value="#{adminController.newNastavnik.nastavnikId}" readonly="true" />
+            <h:outputLabel for="imeNas" value="Ime:"/>
+            <h:inputText id="imeNas" value="#{adminController.newNastavnik.ime}" />
+            <h:outputLabel for="prezimeNas" value="Prezime:"/>
+            <h:inputText id="prezimeNas" value="#{adminController.newNastavnik.prezime}" />
+            <h:outputLabel for="userNas" value="Username:"/>
+            <h:inputText id="userNas" value="#{adminController.newNastavnik.username}" />
+            <h:outputLabel for="passNas" value="Lozinka:"/>
+            <h:inputText id="passNas" value="#{adminController.newNastavnik.lozinka}" />
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{adminController.addNastavnik()}" value="Sacuvaj" styleClass="saveButton"/>
+               <h:commandButton id="cancelButton" action="#{adminController.initnewNastavnik()}" value="Odustani" styleClass="cancelButton"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>  
+            </h:panelGrid>
+         </p>
+      </h:form>
+      <h2>Lista nastavnika</h2>
+      <h:panelGroup rendered="#{empty adminController.nastavnici}">
+         <em>Nema nastavnika.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaNastavnika" var="_nastavnik" value="#{adminController.nastavnici}" rendered="#{not empty adminController.nastavnici}" styleClass="simpletablestyle">
+         <h:column>
+         	<f:facet name="header">Id</f:facet>
+                #{_nastavnik.nastavnikId}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Ime</f:facet>
+                #{_nastavnik.ime}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Prezime</f:facet>
+                #{_nastavnik.prezime}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Username</f:facet>
+                #{_nastavnik.username}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Lozinka</f:facet>
+                #{_nastavnik.lozinka}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{adminController.removeNastavnik(_nastavnik)}">obrisi</h:commandLink> &#160;&#160;&#160; <h:commandLink action="#{adminController.editNastavnik(_nastavnik)}">izmeni</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>

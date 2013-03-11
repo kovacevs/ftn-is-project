@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Administracija predmeta</h2>
+
+      <h:form styleClass="loginForm">
+         <h2>Dodavanje/izmena predmeta</h2>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idPred" value="ID:"/>
+            <h:inputText id="idPred" value="#{adminController.newPredmet.predmetId}" readonly="true" />
+            <h:outputLabel for="nazivPred" value="Naziv:"/>
+            <h:inputText id="nazivPred" value="#{adminController.newPredmet.naziv}" />
+            <h:outputLabel value="Odsek:"/>
+            <h:selectOneMenu value="#{adminController.newPredmet.odsek}">
+   				<f:selectItems value="#{adminController.odseci}" var="ods" itemLabel="#{ods.naziv}" noSelectionLabel="Select..."/>
+   			</h:selectOneMenu>
+            <h:outputLabel value="Nastavnik:"/>
+            <h:selectOneMenu value="#{adminController.newPredmet.nastavnik}">
+   				<f:selectItems value="#{adminController.nastavnici}" var="nas" itemLabel="#{nas.ime} #{nas.prezime}" noSelectionLabel="Select..."/>
+   			</h:selectOneMenu> 
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="saveButton" action="#{adminController.addPredmet()}" value="Sacuvaj" styleClass="saveButton"/> 
+               <h:commandButton id="cancelButton" action="#{adminController.initnewPredmet()}" value="Odustani" styleClass="cancelButton"/>
+               <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>  
+            </h:panelGrid>
+         </p>
+      </h:form>
+      <h2>Lista predmeta</h2>
+      <h:panelGroup rendered="#{empty adminController.predmeti}">
+         <em>Nema predmeta.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaPredmeta" var="_predmet" value="#{adminController.predmeti}" rendered="#{not empty adminController.predmeti}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_predmet.predmetId}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Name</f:facet>
+                #{_predmet.naziv}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Odsek</f:facet>
+                #{_predmet.odsek.naziv}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Nastavnik</f:facet>
+            	#{_predmet.nastavnik.ime} #{_predmet.nastavnik.prezime}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{adminController.removePredmet(_predmet)}">obrisi</h:commandLink> &#160;&#160;&#160; <h:commandLink action="#{adminController.editPredmet(_predmet)}">izmeni</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>

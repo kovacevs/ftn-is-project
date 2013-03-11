@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+	   <ul>
+	      <li><a href="index.jsf">Povratak</a></li>
+	   </ul>            
+   </ui:define>
+   <ui:define name="content">
+      <h2>Prijava za nastavnika</h2>
+
+      <h:form id="reg" styleClass="loginForm">
+      <p></p>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel styleClass="loginLabel" for="username" value="Username:"/>
+            <h:inputText id="username" value="#{loginFormData.username}" />
+
+            <h:outputLabel styleClass="loginLabel" for="password" value="Password:"/>
+            <h:inputSecret id="password" value="#{loginFormData.password}"/>
+         </h:panelGrid>
+         <h:panelGrid rows="2">
+               <h:commandButton id="login" action="#{nastavnikLogin.login}" value="Prijava" styleClass="register"/>
+               <h:messages styleClass="invalid" errorClass="invalid" infoClass="valid" warnClass="warning"
+                           globalOnly="true"/>    
+         </h:panelGrid>   
+      </h:form>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+      <p>&#160;</p>
+     <p>&#160;</p>
+      <p>&#160;</p>
+   </ui:define>
+</ui:composition>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+   <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/gfx/favicon.ico"/>
+   <title>FTN-IS Application</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <h:outputStylesheet name="css/screen.css" />
+</h:head>
+<h:body>
+   <div id="container">
+   	  
+   	  <h1><img src="#{request.contextPath}/resources/gfx/ftn22.png" style="padding-bottom: 6px; vertical-align: middle;"/><i>  FTN-IS</i></h1>	
+      <div id="aside">
+         <ui:insert name="aside">
+                    [Meny content will be inserted here]
+         </ui:insert>
+      </div>
+      <div id="content">
+         <ui:insert name="content">
+                    [Template content will be inserted here]
+         </ui:insert>
+      </div>
+      <div id="footer">
+         <p><br></br><br></br><br></br>
+            Powered by <img src="#{request.contextPath}/resources/gfx/icon_small.png"/> JBoss Application Server 7.
+         </p>
+      </div>
+   </div>
+</h:body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:t="http://myfaces.apache.org/tomahawk"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Prijava ispita</h2>
+
+		<h4>Predmeti za prijavu</h4>
+      <h:panelGroup rendered="#{empty studentPrijava.predmetiZaPrijavu}">
+         <em>Nema predmeta koji se mogu prijaviti</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaPrijava" var="_pred" value="#{studentPrijava.predmetiZaPrijavu}" rendered="#{not empty studentPrijava.predmetiZaPrijavu}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Predmet</f:facet>
+                #{_pred.naziv}
+         </h:column>
+
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{studentPrijava.save(_pred)}">prijavi</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+      
+      
+      <h4>Prijavljeni predmeti</h4>
+      <h:panelGroup rendered="#{empty studentPrijava.prijavljeniIspiti}">
+         <em>Nema prijavljenih predmeta</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaPrij" var="_prij" value="#{studentPrijava.prijavljeniIspiti}" rendered="#{not empty studentPrijava.prijavljeniIspiti}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Predmet</f:facet>
+                #{_prij.predmet.naziv}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Datum prijave</f:facet>
+            <h:outputText value="#{_prij.datum}">
+  				<f:convertDateTime type="date" pattern="EEE, dd.MM.yyyy"/>
+			</h:outputText>
+         </h:column> 
+      </h:dataTable>
+   </ui:define>
+</ui:composition>

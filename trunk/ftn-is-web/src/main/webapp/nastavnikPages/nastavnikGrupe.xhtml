@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:t="http://myfaces.apache.org/tomahawk"
+   template="../WEB-INF/templates/default.xhtml">
+   <ui:define name="aside">
+   <ui:include src="meny.xhtml" />
+   </ui:define>
+   <ui:define name="content">
+      <h2>Azuriranje spiska grupa</h2>
+
+      <h:form styleClass="loginForm">
+         <h2>Dodavanje/izmena grupe</h2>
+         <h:panelGrid columns="2" columnClasses="titleCell">
+            <h:outputLabel for="idGr" value="ID:"/>
+            <h:inputText id="idGr" value="#{nastavnikGrupe.newGrupa.grupaId}" readonly="true" />
+            <h:outputLabel value="Predmet:"/>
+            <h:selectOneMenu value="#{nastavnikGrupe.newGrupa.predmet}">
+   				<f:selectItems value="#{nastavnikGrupe.predmeti}" var="pred" itemLabel="#{pred.naziv}"/>
+   			</h:selectOneMenu>
+   			<h:outputLabel for="a" value="Pocetak nastave:"/>
+            <t:inputTextHelp id="a" value="#{nastavnikGrupe.newGrupa.pocetakNastave}" helpText="d.M.yyyy">
+            	<f:convertDateTime pattern="d.M.yyyy"/>
+            </t:inputTextHelp>
+            <h:outputLabel for="imeStud" value="Broj Termina:"/>
+            <h:inputText id="imeStud" value="#{nastavnikGrupe.newGrupa.brojTermina}" />
+         </h:panelGrid>
+
+         <p>
+            <h:panelGrid columns="2">
+               <h:commandButton id="register" action="#{nastavnikGrupe.addGrupa()}" value="Sacuvaj" styleClass="saveButton"/>
+               <h:commandButton id="cancelButton" action="#{nastavnikGrupe.initnewGrupa()}" value="Odustani" styleClass="cancelButton"/>
+            </h:panelGrid>
+            <h:panelGrid>
+            	<h:messages showDetail="true" styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"/>  <!-- globalOnly="true" -->
+            </h:panelGrid>
+         </p>
+      </h:form>
+      <h2>Lista grupa za predmet:</h2>
+      <h:form>
+      <h:selectOneMenu value="#{nastavnikGrupe.selectedPredmet}" onchange="submit()" valueChangeListener="#{nastavnikGrupe.selectPredmet}">
+   		<f:selectItems value="#{nastavnikGrupe.predmeti}" var="pred" itemLabel="#{pred.naziv}"/>
+   	  </h:selectOneMenu>
+   	  </h:form>
+   	  <p/><!-- &#160;</p> -->
+      <h:panelGroup rendered="#{empty nastavnikGrupe.grupe}">
+         <em>Nema grupa.</em>
+      </h:panelGroup>
+      <h:dataTable id="tabelaGrupa" var="_grupa" value="#{nastavnikGrupe.grupe}" rendered="#{not empty nastavnikGrupe.grupe}" styleClass="simpletablestyle">
+         <h:column>
+            <f:facet name="header">Id</f:facet>
+                #{_grupa.grupaId}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Pocetak nastave</f:facet>
+            <h:outputText value="#{_grupa.pocetakNastave}">
+  				<f:convertDateTime type="date" pattern="EEE, dd.MM.yyyy"/>
+			</h:outputText>
+                
+         </h:column> 
+         <h:column>
+            <f:facet name="header">Broj termina</f:facet>
+                #{_grupa.brojTermina}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Operacije</f:facet>
+            <h:form>
+            	<h:commandLink action="#{nastavnikGrupe.removeGrupa(_grupa)}">obrisi</h:commandLink> &#160;&#160;&#160; <h:commandLink action="#{nastavnikGrupe.editGrupa(_grupa)}">izmeni</h:commandLink>
+            </h:form>
+         </h:column>
+      </h:dataTable>
+   </ui:define>
+</ui:composition>
